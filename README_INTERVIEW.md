@@ -1,6 +1,6 @@
 # TikFlow - Ghi chú kỹ thuật phỏng vấn
 
-Tài liệu này tóm tắt các điểm kỹ thuật có thể dùng khi phỏng vấn: sơ đồ kiến trúc, luồng dữ liệu, những đoạn code thể hiện cách xử lý bất đồng bộ, retry/backoff, realtime cache update và Clean Architecture. Các domain, token, API key và cấu hình nhạy cảm đã được ẩn hoặc thay bằng tên trung lập.
+Tài liệu này tóm tắt các điểm kỹ thuật : sơ đồ kiến trúc, luồng dữ liệu, những đoạn code thể hiện cách xử lý bất đồng bộ, retry/backoff, realtime cache update và Clean Architecture. Các domain, token, API key và cấu hình nhạy cảm đã được ẩn hoặc thay bằng tên trung lập.
 
 ## 1. System Overview
 
