@@ -12,7 +12,7 @@ TikFlow là hệ thống quản lý TikTok Shop gồm ba phần chính:
 
 ## 2. Architecture Diagram
 
-![System Architecture](docs/interview-assets/system-architecture.svg)
+![System Architecture](interview-assets/system-architecture.svg)
 
 Luồng chính:
 
@@ -24,18 +24,18 @@ Luồng chính:
 
 ## 3. ADMS / Hardware Data Flow
 
-![ADMS Data Flow](docs/interview-assets/adms-data-flow.svg)
+![ADMS Data Flow](interview-assets/adms-data-flow.svg)
 
 Ghi chú khi phỏng vấn: code hiện tại **không mở raw TCP socket trực tiếp với máy chấm công**. Máy ADMS/iClock giao tiếp với Go service qua các HTTP endpoint như `/:tenant/iclock/cdata`, `/:tenant/iclock/getrequest`, `/:tenant/iclock/devicecmd`. Phần "socket" trong hệ thống nằm ở kết nối nội bộ Kafka TCP và WebSocket/STOMP giữa backend với client.
 
 ## 4. Screenshots
 
-![img.png](img.png)
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
-![img_3.png](img_3.png)
-![img_4.png](img_4.png)
-![img_5.png](img_5.png)
+![img.png](interview-assets/img.png)
+![img_1.png](interview-assets/img_1.png)
+![img_2.png](interview-assets/img_2.png)
+![img_3.png](interview-assets/img_3.png)
+![img_4.png](interview-assets/img_4.png)
+![img_5.png](interview-assets/img_5.png)
 
 ## 5. Code Snippets
 

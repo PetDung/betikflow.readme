@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980" role="img" aria-labelledby="title desc">
+  <title id="title">TikFlow system architecture</title>
+  <desc id="desc">Architecture diagram showing Next.js frontend, Spring Boot backend, Go ADMS service, Kafka, Redis, PostgreSQL, and TikTok Shop API.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#eef6ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L12,7 L2,12 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L12,7 L2,12 Z" fill="#64748b"/>
+    </marker>
+    <style>
+      .title { font: 800 40px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 18px Arial, sans-serif; fill: #475569; }
+      .card { fill: #ffffff; stroke: #dbe5f0; stroke-width: 2; rx: 8; filter: url(#shadow); }
+      .soft { fill: #f8fafc; stroke: #dbe5f0; stroke-width: 1.5; rx: 8; }
+      .section { font: 800 22px Arial, sans-serif; fill: #0f172a; }
+      .body { font: 500 16px Arial, sans-serif; fill: #334155; }
+      .small { font: 500 14px Arial, sans-serif; fill: #64748b; }
+      .tag { fill: #e0f2fe; stroke: #7dd3fc; stroke-width: 1; rx: 6; }
+      .tagText { font: 700 13px Arial, sans-serif; fill: #0369a1; }
+      .arrow { stroke: #2563eb; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .arrowGray { stroke: #64748b; stroke-width: 2.5; fill: none; marker-end: url(#arrowGray); }
+      .dash { stroke-dasharray: 10 8; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="980" fill="url(#bg)"/>
+  <text x="70" y="72" class="title">TikFlow - System Architecture</text>
+  <text x="70" y="104" class="subtitle">Next.js client, Spring Boot backend, Go ADMS integration, Kafka event pipeline, Redis, PostgreSQL, and TikTok Shop APIs.</text>
+
+  <g transform="translate(70 165)">
+    <rect class="card" width="300" height="295"/>
+    <text x="28" y="44" class="section">Client Layer</text>
+    <rect x="28" y="70" width="244" height="46" class="soft"/>
+    <text x="46" y="99" class="body">Next.js 16 / React</text>
+    <rect x="28" y="128" width="244" height="46" class="soft"/>
+    <text x="46" y="157" class="body">React Query + Zustand</text>
+    <rect x="28" y="186" width="244" height="46" class="soft"/>
+    <text x="46" y="215" class="body">Axios REST client</text>
+    <rect x="28" y="244" width="244" height="34" class="tag"/>
+    <text x="46" y="266" class="tagText">STOMP/SockJS realtime</text>
+  </g>
+
+  <g transform="translate(475 140)">
+    <rect class="card" width="405" height="350"/>
+    <text x="28" y="44" class="section">Spring Boot Backend</text>
+    <rect x="28" y="72" width="345" height="46" class="soft"/>
+    <text x="46" y="101" class="body">REST API /api/v1</text>
+    <rect x="28" y="130" width="345" height="46" class="soft"/>
+    <text x="46" y="159" class="body">Auth, Team, RBAC</text>
+    <rect x="28" y="188" width="345" height="46" class="soft"/>
+    <text x="46" y="217" class="body">Order, Product, Finance modules</text>
+    <rect x="28" y="246" width="345" height="46" class="soft"/>
+    <text x="46" y="275" class="body">Clean Architecture ports/adapters</text>
+    <rect x="28" y="304" width="345" height="30" class="tag"/>
+    <text x="46" y="324" class="tagText">WebSocket broker /ws-tiktok</text>
+  </g>
+
+  <g transform="translate(1010 165)">
+    <rect class="card" width="270" height="295"/>
+    <text x="28" y="44" class="section">Data &amp; Infra</text>
+    <rect x="28" y="72" width="214" height="46" class="soft"/>
+    <text x="46" y="101" class="body">PostgreSQL</text>
+    <rect x="28" y="130" width="214" height="46" class="soft"/>
+    <text x="46" y="159" class="body">Redis cache/rate limit</text>
+    <rect x="28" y="188" width="214" height="46" class="soft"/>
+    <text x="46" y="217" class="body">Kafka event bus</text>
+    <rect x="28" y="246" width="214" height="34" class="tag"/>
+    <text x="46" y="268" class="tagText">DLQ + trace headers</text>
+  </g>
+
+  <g transform="translate(1350 165)">
+    <rect class="card" width="190" height="295"/>
+    <text x="26" y="44" class="section">External</text>
+    <rect x="26" y="72" width="138" height="46" class="soft"/>
+    <text x="43" y="101" class="body">TikTok Shop</text>
+    <rect x="26" y="130" width="138" height="46" class="soft"/>
+    <text x="43" y="159" class="body">Image/File API</text>
+    <rect x="26" y="188" width="138" height="46" class="soft"/>
+    <text x="43" y="217" class="body">Order APIs</text>
+    <rect x="26" y="246" width="138" height="34" class="tag"/>
+    <text x="43" y="268" class="tagText">Rate limited</text>
+  </g>
+
+  <g transform="translate(70 610)">
+    <rect class="card" width="300" height="230"/>
+    <text x="28" y="44" class="section">Hardware</text>
+    <rect x="28" y="72" width="244" height="46" class="soft"/>
+    <text x="46" y="101" class="body">ADMS/iClock devices</text>
+    <rect x="28" y="130" width="244" height="46" class="soft"/>
+    <text x="46" y="159" class="body">Push attendance logs</text>
+    <rect x="28" y="188" width="244" height="28" class="tag"/>
+    <text x="46" y="207" class="tagText">HTTP device protocol</text>
+  </g>
+
+  <g transform="translate(475 580)">
+    <rect class="card" width="405" height="290"/>
+    <text x="28" y="44" class="section">Go ADMS Service</text>
+    <rect x="28" y="72" width="345" height="46" class="soft"/>
+    <text x="46" y="101" class="body">Gin routes /:tenant/iclock/*</text>
+    <rect x="28" y="130" width="345" height="46" class="soft"/>
+    <text x="46" y="159" class="body">Tenant + device middleware</text>
+    <rect x="28" y="188" width="345" height="46" class="soft"/>
+    <text x="46" y="217" class="body">Parser strategy per device type</text>
+    <rect x="28" y="246" width="345" height="28" class="tag"/>
+    <text x="46" y="265" class="tagText">Worker pools, retry, DLQ</text>
+  </g>
+
+  <g transform="translate(1010 610)">
+    <rect class="card" width="270" height="230"/>
+    <text x="28" y="44" class="section">Async Topics</text>
+    <rect x="28" y="72" width="214" height="42" class="soft"/>
+    <text x="46" y="99" class="body">attendance.parsed</text>
+    <rect x="28" y="124" width="214" height="42" class="soft"/>
+    <text x="46" y="151" class="body">notification-events</text>
+    <rect x="28" y="176" width="214" height="34" class="tag"/>
+    <text x="46" y="198" class="tagText">Kafka over TCP</text>
+  </g>
+
+  <path class="arrow" d="M370 260 C420 260 425 260 475 260"/>
+  <text x="392" y="246" class="small">REST</text>
+  <path class="arrow dash" d="M370 330 C420 360 425 365 475 382"/>
+  <text x="390" y="356" class="small">STOMP</text>
+  <path class="arrow" d="M880 265 C950 265 950 265 1010 265"/>
+  <text x="910" y="250" class="small">SQL/cache/events</text>
+  <path class="arrow" d="M1280 265 C1310 265 1320 265 1350 265"/>
+  <text x="1290" y="250" class="small">signed APIs</text>
+  <path class="arrow" d="M370 725 C420 725 425 725 475 725"/>
+  <text x="386" y="709" class="small">device push/poll</text>
+  <path class="arrow" d="M880 725 C940 725 950 725 1010 725"/>
+  <text x="905" y="710" class="small">produce/consume</text>
+  <path class="arrowGray dash" d="M1145 610 C1145 525 1040 478 880 425"/>
+  <text x="1015" y="540" class="small">notifications</text>
+  <path class="arrowGray dash" d="M475 405 C430 430 400 485 358 610"/>
+  <text x="365" y="520" class="small">commands</text>
+
+  <g transform="translate(70 910)">
+    <rect x="0" y="-26" width="495" height="48" class="soft"/>
+    <line x1="24" y1="-2" x2="82" y2="-2" class="arrow"/>
+    <text x="98" y="4" class="small">Synchronous request or service call</text>
+    <line x1="310" y1="-2" x2="368" y2="-2" class="arrowGray dash"/>
+    <text x="384" y="4" class="small">Async event/realtime path</text>
+  </g>
+</svg>

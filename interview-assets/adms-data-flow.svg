@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">ADMS device data flow</title>
+  <desc id="desc">Data flow from ADMS attendance devices to Go service, Kafka, database, backend notifications, and Next.js client.</desc>
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f1f7fb"/>
+    </linearGradient>
+    <filter id="shadow2" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow2" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L12,7 L2,12 Z" fill="#0f766e"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L12,7 L2,12 Z" fill="#ea580c"/>
+    </marker>
+    <style>
+      .title { font: 800 40px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 18px Arial, sans-serif; fill: #475569; }
+      .card { fill: #ffffff; stroke: #dbe5f0; stroke-width: 2; rx: 8; filter: url(#shadow2); }
+      .soft { fill: #f8fafc; stroke: #dbe5f0; stroke-width: 1.5; rx: 8; }
+      .section { font: 800 21px Arial, sans-serif; fill: #0f172a; }
+      .body { font: 500 15px Arial, sans-serif; fill: #334155; }
+      .small { font: 500 13px Arial, sans-serif; fill: #64748b; }
+      .code { font: 700 13px Consolas, monospace; fill: #0f766e; }
+      .tag { fill: #ccfbf1; stroke: #5eead4; stroke-width: 1; rx: 6; }
+      .tagText { font: 700 13px Arial, sans-serif; fill: #0f766e; }
+      .arrow { stroke: #0f766e; stroke-width: 3; fill: none; marker-end: url(#arrow2); }
+      .cmd { stroke: #ea580c; stroke-width: 3; fill: none; marker-end: url(#arrowOrange); }
+      .dash { stroke-dasharray: 10 8; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg2)"/>
+  <text x="70" y="72" class="title">ADMS/iClock Attendance Data Flow</text>
+  <text x="70" y="104" class="subtitle">The device integration uses HTTP ADMS endpoints for hardware communication; Kafka uses TCP internally for event streaming.</text>
+
+  <g transform="translate(70 170)">
+    <rect class="card" width="240" height="215"/>
+    <text x="24" y="42" class="section">1. Device</text>
+    <rect x="24" y="68" width="192" height="42" class="soft"/>
+    <text x="42" y="95" class="body">ADMS/iClock machine</text>
+    <rect x="24" y="120" width="192" height="42" class="soft"/>
+    <text x="42" y="147" class="body">SN + ATTLOG rows</text>
+    <rect x="24" y="172" width="192" height="28" class="tag"/>
+    <text x="42" y="191" class="tagText">Realtime=1</text>
+  </g>
+
+  <g transform="translate(400 150)">
+    <rect class="card" width="300" height="255"/>
+    <text x="24" y="42" class="section">2. Gin Controller</text>
+    <rect x="24" y="68" width="252" height="42" class="soft"/>
+    <text x="42" y="95" class="code">/:tenant/iclock/cdata</text>
+    <rect x="24" y="120" width="252" height="42" class="soft"/>
+    <text x="42" y="147" class="body">Tenant validation middleware</text>
+    <rect x="24" y="172" width="252" height="42" class="soft"/>
+    <text x="42" y="199" class="body">Device middleware by SN</text>
+    <rect x="24" y="224" width="252" height="20" class="tag"/>
+    <text x="42" y="239" class="tagText">returns OK to hardware</text>
+  </g>
+
+  <g transform="translate(790 150)">
+    <rect class="card" width="300" height="255"/>
+    <text x="24" y="42" class="section">3. ADMS Service</text>
+    <rect x="24" y="68" width="252" height="42" class="soft"/>
+    <text x="42" y="95" class="body">Route by table/action</text>
+    <rect x="24" y="120" width="252" height="42" class="soft"/>
+    <text x="42" y="147" class="body">Parser strategy lookup</text>
+    <rect x="24" y="172" width="252" height="42" class="soft"/>
+    <text x="42" y="199" class="body">Batch Kafka messages</text>
+    <rect x="24" y="224" width="252" height="20" class="tag"/>
+    <text x="42" y="239" class="tagText">key = employee code</text>
+  </g>
+
+  <g transform="translate(1180 150)">
+    <rect class="card" width="300" height="255"/>
+    <text x="24" y="42" class="section">4. Kafka</text>
+    <rect x="24" y="68" width="252" height="42" class="soft"/>
+    <text x="42" y="95" class="code">attendance.parsed</text>
+    <rect x="24" y="120" width="252" height="42" class="soft"/>
+    <text x="42" y="147" class="code">attendance.parsed.error</text>
+    <rect x="24" y="172" width="252" height="42" class="soft"/>
+    <text x="42" y="199" class="body">Partitions + consumer group</text>
+    <rect x="24" y="224" width="252" height="20" class="tag"/>
+    <text x="42" y="239" class="tagText">TCP broker connection</text>
+  </g>
+
+  <g transform="translate(1180 560)">
+    <rect class="card" width="300" height="255"/>
+    <text x="24" y="42" class="section">5. Workers</text>
+    <rect x="24" y="68" width="252" height="42" class="soft"/>
+    <text x="42" y="95" class="body">Worker per partition</text>
+    <rect x="24" y="120" width="252" height="42" class="soft"/>
+    <text x="42" y="147" class="body">Exponential backoff</text>
+    <rect x="24" y="172" width="252" height="42" class="soft"/>
+    <text x="42" y="199" class="body">Commit after processing</text>
+    <rect x="24" y="224" width="252" height="20" class="tag"/>
+    <text x="42" y="239" class="tagText">DLQ on failures</text>
+  </g>
+
+  <g transform="translate(790 560)">
+    <rect class="card" width="300" height="255"/>
+    <text x="24" y="42" class="section">6. Persistence</text>
+    <rect x="24" y="68" width="252" height="42" class="soft"/>
+    <text x="42" y="95" class="body">GORM transaction flow</text>
+    <rect x="24" y="120" width="252" height="42" class="soft"/>
+    <text x="42" y="147" class="body">raw_attendance_logs</text>
+    <rect x="24" y="172" width="252" height="42" class="soft"/>
+    <text x="42" y="199" class="body">daily timesheet calculation</text>
+    <rect x="24" y="224" width="252" height="20" class="tag"/>
+    <text x="42" y="239" class="tagText">dedupe by employee/time/team</text>
+  </g>
+
+  <g transform="translate(400 560)">
+    <rect class="card" width="300" height="255"/>
+    <text x="24" y="42" class="section">7. Notification</text>
+    <rect x="24" y="68" width="252" height="42" class="soft"/>
+    <text x="42" y="95" class="code">notification-events</text>
+    <rect x="24" y="120" width="252" height="42" class="soft"/>
+    <text x="42" y="147" class="body">Spring NotificationService</text>
+    <rect x="24" y="172" width="252" height="42" class="soft"/>
+    <text x="42" y="199" class="body">STOMP user queue</text>
+    <rect x="24" y="224" width="252" height="20" class="tag"/>
+    <text x="42" y="239" class="tagText">role/shop authorized</text>
+  </g>
+
+  <g transform="translate(70 560)">
+    <rect class="card" width="240" height="255"/>
+    <text x="24" y="42" class="section">8. Next.js UI</text>
+    <rect x="24" y="68" width="192" height="42" class="soft"/>
+    <text x="42" y="95" class="body">React Query cache</text>
+    <rect x="24" y="120" width="192" height="42" class="soft"/>
+    <text x="42" y="147" class="body">Realtime updates</text>
+    <rect x="24" y="172" width="192" height="42" class="soft"/>
+    <text x="42" y="199" class="body">Toast + tab counts</text>
+    <rect x="24" y="224" width="192" height="20" class="tag"/>
+    <text x="42" y="239" class="tagText">no full reload</text>
+  </g>
+
+  <path class="arrow" d="M310 275 C350 275 360 275 400 275"/>
+  <text x="330" y="256" class="small">POST ATTLOG</text>
+  <path class="arrow" d="M700 275 C745 275 745 275 790 275"/>
+  <text x="724" y="256" class="small">raw body</text>
+  <path class="arrow" d="M1090 275 C1135 275 1135 275 1180 275"/>
+  <text x="1110" y="256" class="small">messages</text>
+  <path class="arrow" d="M1330 405 C1330 470 1330 500 1330 560"/>
+  <text x="1348" y="488" class="small">consume</text>
+  <path class="arrow" d="M1180 688 C1135 688 1135 688 1090 688"/>
+  <text x="1112" y="668" class="small">save</text>
+  <path class="arrow" d="M790 688 C745 688 745 688 700 688"/>
+  <text x="724" y="668" class="small">event</text>
+  <path class="arrow" d="M400 688 C360 688 350 688 310 688"/>
+  <text x="330" y="668" class="small">STOMP</text>
+
+  <path class="cmd dash" d="M190 560 C190 500 230 455 400 385"/>
+  <text x="210" y="495" class="small">admin command</text>
+  <path class="cmd dash" d="M400 220 C300 150 210 135 190 170"/>
+  <text x="225" y="160" class="small">/getrequest polling</text>
+  <path class="cmd dash" d="M190 385 C235 475 310 520 400 585"/>
+  <text x="220" y="448" class="small">/devicecmd result</text>
+</svg>
