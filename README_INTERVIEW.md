@@ -370,8 +370,7 @@ public class EventPublisherAdapter implements EventPublisher {
 }
 ```
 
-## 6. Suggested Interview Talking Points
-
+## 6. Tóm tắt
 - **Reliability**: Kafka partition workers, commit sau khi process, DLQ khi lỗi, retry/backoff cho TikTok API và Kafka DLQ.
 - **Performance**: upload media product song song bằng `CompletableFuture`, React Query patch cache thay vì reload toàn bộ list.
 - **Security**: access token để trong memory/cookie, refresh flow có queue; WebSocket có auth header và hard lock khi token invalid.
